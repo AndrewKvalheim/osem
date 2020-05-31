@@ -222,6 +222,10 @@ gem 'nokogiri', '>= 1.8.1'
 # memcached binary connector
 gem 'dalli'
 
+# Whitelist and review outgoing mail in trial environment
+gem 'letter_opener'
+gem 'mailsafe'
+
 # Use guard and spring for testing in development
 group :development do
   # to launch specs when files are modified
