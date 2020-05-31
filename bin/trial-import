@@ -1,0 +1,18 @@
+#!/bin/bash
+set -Eeux
+
+dc='docker-compose --env-file .env.production --file docker-compose.production.yml'
+rake="$dc run --rm production_web bundle exec rake"
+
+sql_basename="$(basename "$1")"
+sql_path="$(readlink -f "$1")"
+
+# Import
+container="$($dc run --detach --volume "$sql_path:/docker-entrypoint-initdb.d/10-$sql_basename:ro" production_database)"
+docker logs --follow "$container" 2>&1 | tee >(grep --max-count 1 --quiet 'MySQL init process done.' && docker rm -f "$container")
+
+# Migrate
+$rake jobs:clear data:drop_all_ahoy_events db:migrate VERSION=20200331214534
+$rake data:set_conference_in_versions data:move_events_attributes roles:add db:migrate
+
+echo "Start with: $dc up"
