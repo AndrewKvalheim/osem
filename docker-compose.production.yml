@@ -2,12 +2,14 @@ version: "2.4"
 
 services:
   production_database:
-    image: postgres
+    image: mysql:5.7
     environment:
-      PGDATA: /var/lib/postgresql/data/pgdata
-      POSTGRES_PASSWORD: $OSEM_DB_PASSWORD
+      MYSQL_DATABASE: $OSEM_DB_NAME
+      MYSQL_ROOT_PASSWORD: $OSEM_DB_PASSWORD
+      MYSQL_PASSWORD: $OSEM_DB_PASSWORD
+      MYSQL_USER: $OSEM_DB_USER
     volumes:
-      - osem_production_database:/var/lib/postgresql/data/pgdata
+      - osem_production_database:/var/lib/mysql
   production_web:
     build:
       context: .
@@ -19,6 +21,7 @@ services:
     env_file: .env.production # see dotenv.example file
     environment:
      OSEM_DB_HOST: production_database
+     OSEM_DB_PORT: 3306
      RAILS_SERVE_STATIC_FILES: 'true'
     command: /osem/bin/osem-init.sh
     volumes:
