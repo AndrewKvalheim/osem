@@ -1,0 +1,14 @@
+# Application
+OSEM_NAME=SeaGL
+OSEM_HOSTNAME=osem.seagl.org
+OSEM_EMAIL_ADDRESS=no-reply@seagl.org
+OSEM_LOG_LEVEL=info
+
+# Database
+OSEM_DB_ADAPTER=mysql2
+OSEM_DB_USER=osem
+OSEM_DB_NAME=osem1prod
+
+# Secrets
+OSEM_DB_PASSWORD= # TODO: Generate
+SECRET_KEY_BASE= # TODO: Generate

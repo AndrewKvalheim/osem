@@ -1,20 +1,55 @@
-This branch is a preview of [OSEM] with several prospective pull requests
-merged:
+# Trial of upstream OSEM
 
-- Explicitly configure database authentication in Docker Compose [#2640](https://github.com/openSUSE/osem/pull/2640)
-- Use version range instead of OSEM_RUBY_VERSION. [#2646](https://github.com/openSUSE/osem/pull/2646)
-- Resolve conflict between WebMock and Webdrivers [#2648](https://github.com/openSUSE/osem/pull/2648)
-- Ignore schema.rb in RuboCop [#2655](https://github.com/openSUSE/osem/pull/2655)
-- Fix access to the version history of organization-level roles [#2654](https://github.com/openSUSE/osem/pull/2654)
-- Remove superfluous click to display Markdown editor [#2657](https://github.com/openSUSE/osem/pull/2657)
-- Fix bug in logging of screenshots of failed tests [#2658](https://github.com/openSUSE/osem/pull/2658)
-- Use Rails transactional tests [#2659](https://github.com/openSUSE/osem/pull/2659)
-- Fix bug in test of animated form [#2662](https://github.com/openSUSE/osem/pull/2662)
-- Update Docker Compose file format: 2.0 → 2.4 (minor) [#2663](https://github.com/openSUSE/osem/pull/2663)
-- Annotate past migrations with Rails version [#2665](https://github.com/openSUSE/osem/pull/2665)
-- Fix migration that fails on conferences without pictures [#2666](https://github.com/openSUSE/osem/pull/2666)
-- Work around bug in migrations to non-null columns [#2667](https://github.com/openSUSE/osem/pull/2667)
-- Constrain Docker base image to openSUSE Leap 15.1 [#2697](https://github.com/openSUSE/osem/pull/2697)
-- Update omniauth: 1.9.0 → 1.9.1 (patch) [#2698](https://github.com/openSUSE/osem/pull/2698)
+This branch provides a database migration script, application configuration, and
+Docker environment with which SeaGL can preview migration to [upstream] OSEM.
 
-[osem]: https://github.com/openSUSE/osem
+As a base it uses [`AndrewKvalheim:future`][andrewkvalheim:future], which merges
+several prospective upstream pull requests onto `openSUSE:master`.
+
+## Usage
+
+Install/acquire dependencies:
+
+- [Docker Engine][] and [Docker Compose][]
+- a database dump from SeaGL's OSEM instance
+
+Configure the environment:
+
+```bash
+generate_secret() { </dev/urandom tr -dc 'A-Za-z0-9' | head -c "$1" ; }
+
+sed -e "s/\(OSEM_DB_PASSWORD=\).*/\\1$(generate_secret 32)/" \
+    -e "s/\(SECRET_KEY_BASE=\).*/\\1$(generate_secret 64)/" \
+    'dotenv.production.example' > '.env.production'
+```
+
+Build images:
+
+```bash
+docker build --file 'Dockerfile.base' --tag 'osem/base' '.'
+docker-compose --file 'docker-compose.production.yml' build
+```
+
+Import and migrate the database:
+
+```bash
+./bin/trial-import 'backup-osem1prod.sql.xz'
+```
+
+Start the server at [`localhost:8080`](http://localhost:8080/):
+
+```bash
+docker-compose --file 'docker-compose.production.yml' --env-file '.env.production' up
+```
+
+Clean up:
+
+```bash
+docker-compose --file 'docker-compose.production.yml' down --rmi 'all' --volumes
+docker rmi 'osem/base'
+```
+
+[andrewkvalheim:future]: https://github.com/AndrewKvalheim/osem/commits/future
+[docker compose]: https://docs.docker.com/compose/
+[docker engine]: https://docs.docker.com/engine/
+[upstream]: https://github.com/openSUSE/osem
