@@ -1,21 +1,20 @@
-[![Build Status](https://travis-ci.org/openSUSE/osem.svg?branch=master)](https://travis-ci.org/openSUSE/osem)
-[![Code Climate](https://codeclimate.com/github/openSUSE/osem.png)](https://codeclimate.com/github/openSUSE/osem)
-[![codecov](https://codecov.io/gh/opensuse/osem/branch/master/graph/badge.svg)](https://codecov.io/gh/opensuse/osem)
-[![Security Status](https://hakiri.io/github/openSUSE/osem/master.svg)](https://hakiri.io/github/openSUSE/osem/master)
-[![Dependencies](https://badges.depfu.com/badges/8fcd630367d20f5b48d393774c00c5fd/overview.svg)](https://depfu.com/repos/openSUSE/osem)
-<a href="https://heroku.com/deploy?template=https://github.com/openSUSE/osem/tree/v1.0">
-  <img src="https://www.herokucdn.com/deploy/button.svg" height="20px" alt="Deploy">
-</a>
-# Open Source Event Manager - [osem.io](https://osem.io)
-![OSEM Logo](doc/osem-logo.png)
+This branch is a preview of [OSEM] with several prospective pull requests
+merged:
 
-An event management tool tailored to Free and Open Source Software conferences.
+- Explicitly configure database authentication in Docker Compose [#2640](https://github.com/openSUSE/osem/pull/2640)
+- Use version range instead of OSEM_RUBY_VERSION. [#2646](https://github.com/openSUSE/osem/pull/2646)
+- Resolve conflict between WebMock and Webdrivers [#2648](https://github.com/openSUSE/osem/pull/2648)
+- Ignore schema.rb in RuboCop [#2655](https://github.com/openSUSE/osem/pull/2655)
+- Fix access to the version history of organization-level roles [#2654](https://github.com/openSUSE/osem/pull/2654)
+- Remove superfluous click to display Markdown editor [#2657](https://github.com/openSUSE/osem/pull/2657)
+- Fix bug in logging of screenshots of failed tests [#2658](https://github.com/openSUSE/osem/pull/2658)
+- Use Rails transactional tests [#2659](https://github.com/openSUSE/osem/pull/2659)
+- Fix bug in test of animated form [#2662](https://github.com/openSUSE/osem/pull/2662)
+- Update Docker Compose file format: 2.0 → 2.4 (minor) [#2663](https://github.com/openSUSE/osem/pull/2663)
+- Annotate past migrations with Rails version [#2665](https://github.com/openSUSE/osem/pull/2665)
+- Fix migration that fails on conferences without pictures [#2666](https://github.com/openSUSE/osem/pull/2666)
+- Work around bug in migrations to non-null columns [#2667](https://github.com/openSUSE/osem/pull/2667)
+- Constrain Docker base image to openSUSE Leap 15.1 [#2697](https://github.com/openSUSE/osem/pull/2697)
+- Update omniauth: 1.9.0 → 1.9.1 (patch) [#2698](https://github.com/openSUSE/osem/pull/2698)
 
-## Installation
-Please refer to our [installation guide](INSTALL.md).
-
-## How to contribute to OSEM
-Please refer to our [contributing guide](CONTRIBUTING.md).
-
-## Contact
-GitHub issues are the primary way for communicating about specific proposed changes to this project. If you have other questions feel free to subscribe to the [opensuse-web@opensuse.org](http://lists.opensuse.org/opensuse-web/) mailinglist, all OSEM contributors are on that list! Additionally you can use #osem channel on freenode IRC.
+[osem]: https://github.com/openSUSE/osem
