@@ -38,9 +38,11 @@ feature Resource do
       expect(resource.name).to eq('changed_name')
     end
 
-    scenario 'destroy a resource' do
+    scenario 'destroy a resource', js: true do
       visit admin_conference_resources_path(conference.short_title)
-      click_link('Delete', href: admin_conference_resource_path(conference.short_title, resource.id))
+      page.accept_alert do
+        click_link('Delete', href: admin_conference_resource_path(conference.short_title, resource.id))
+      end
 
       page.find('#flash')
       expect(flash).to eq('Resource successfully destroyed.')

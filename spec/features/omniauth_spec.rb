@@ -151,7 +151,7 @@ feature Openid do
     end
   end
 
-  describe 'omniauth' do
+  describe 'omniauth', js: true do
     if User.omniauth_providers.present?
       it_behaves_like 'sign in with openid'
 

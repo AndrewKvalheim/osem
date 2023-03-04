@@ -124,7 +124,7 @@ feature Role do
         expect(user_with_no_role.has_cached_role?('organization_admin', organization)).to be true
       end
 
-      scenario 'successfully removes role organization_admin' do
+      scenario 'successfully removes role organization_admin', js: true do
         click_link('Admins', href: admins_admin_organization_path(organization.id))
 
         first('tbody > tr').find('.btn-danger').click

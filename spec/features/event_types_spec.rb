@@ -7,7 +7,7 @@ feature EventType do
   let!(:organizer) { create(:organizer, resource: conference) }
 
   shared_examples 'event types' do
-    scenario 'adds and updates event type', feature: true do
+    scenario 'adds and updates event type', feature: true, js: true do
 
       sign_in organizer
       visit admin_conference_program_event_types_path(
@@ -38,8 +38,10 @@ feature EventType do
       end
 
       # Remove event type
-      within('tr', text: 'Party') do
-        click_link 'Delete'
+      page.accept_alert do
+        within('tr', text: 'Party') do
+          click_link 'Delete'
+        end
       end
       page.find('#flash')
       expect(flash).to eq('Event type successfully deleted.')
