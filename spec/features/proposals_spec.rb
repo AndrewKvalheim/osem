@@ -9,6 +9,7 @@ feature Event do
   let!(:organizer) { create(:organizer, resource: conference) }
   let!(:participant) { create(:user) }
   let!(:participant_without_bio) { create(:user, biography: '') }
+  let!(:additional_speaker) { create(:user) }
 
   before(:each) do
     @options = {}
@@ -61,6 +62,19 @@ feature Event do
       @event.reload
       expect(@event.state).to eq('new')
     end
+
+    scenario 'update a proposal', js: true do
+      visit admin_conference_program_events_path(conference.short_title)
+      click_on 'Example Proposal'
+      click_on 'Edit'
+
+      select_selectized 'users_selectize', additional_speaker.username
+      click_on 'Update Proposal'
+      expect(page).to have_text('Successfully updated event')
+
+      click_on 'Events'
+      within('tr', text: 'Example Proposal') { expect(page).to have_text(additional_speaker.name) }
+    end
   end
 
   context 'as a participant' do
@@ -102,7 +116,7 @@ feature Event do
       expect(page).to have_content 'Proposal Information'
     end
 
-    scenario 'update a proposal' do
+    scenario 'update a proposal', js: true do
       conference = create(:conference)
       create(:cfp, program: conference.program)
       proposal = create(:event, program: conference.program)
@@ -112,6 +126,7 @@ feature Event do
       visit edit_conference_program_proposal_path(proposal.program.conference.short_title, proposal)
 
       fill_in 'event_subtitle', with: 'My event subtitle'
+      select_selectized 'users_selectize', additional_speaker.username
       select('Easy', from: 'event[difficulty_level_id]')
 
       click_button 'Update Proposal'
