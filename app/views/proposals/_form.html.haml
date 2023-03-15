@@ -4,14 +4,17 @@
 %h4
   Proposal Information
 %hr
-.form-group
-  = f.label :title
-  %abbr{title: 'This field is required'} *
-  = f.text_field :title, autofocus: true, required: true, class: 'form-control'
+.row
+  .col-sm-6
+    .form-group
+      = f.label :title
+      %abbr{title: 'This field is required'} *
+      = f.text_field :title, autofocus: true, required: true, class: 'form-control'
+  .col-sm-6
+    .form-group
+      = f.label :subtitle
+      = f.text_field :subtitle, class: 'form-control'
 - if action_is_edit
-  .form-group
-    = f.label :subtitle
-    = f.text_field :subtitle, class: 'form-control'
   .form-group
     = f.select :speaker_ids, f.object.speakers.pluck(:username, :id), {}, {  multiple: true, class: "form-control", id: "users_selectize", placeholder: "Speakers" }
     %span.help-block

@@ -232,7 +232,6 @@ class Event < ApplicationRecord
       registered:       speakers.all? { |speaker| program.conference.user_registered? speaker },
       commercials:      commercials.any?,
       biographies:      speakers.all? { |speaker| !speaker.biography.blank? },
-      subtitle:         !subtitle.blank?,
       track:            (!track.blank? unless program.tracks.empty?),
       difficulty_level: !difficulty_level.blank?,
       title:            true,

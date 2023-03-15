@@ -78,10 +78,6 @@
             %td{ 'class' => class_for_todo(progress_status['biographies']) }
               %span{ 'class' => [icon_for_todo(progress_status['biographies']), 'fa-lg'] }
           %tr
-            %td= link_to 'Add a subtitle', edit_admin_conference_program_event_path(@event.program.conference.short_title, @event)
-            %td{ 'class' => class_for_todo(progress_status['subtitle']) }
-              %span{ 'class' => [icon_for_todo(progress_status['subtitle']), 'fa-lg'] }
-          %tr
             %td= link_to 'Add a commercial', edit_admin_conference_program_event_path(@event.program.conference.short_title, @event, anchor: 'commercials-content')
             %td{ 'class' => class_for_todo(progress_status['commercials']) }
               %span{ 'class' => [icon_for_todo(progress_status['commercials']), 'fa-lg'] }

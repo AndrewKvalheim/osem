@@ -15,9 +15,6 @@
         = link_to 'Fill out your biography', edit_user_path(current_user)
       - else
         Speakers' biographies missing
-  %li{'class'=>class_for_todo(progress_status['subtitle'])}
-    %span{'class'=>icon_for_todo(progress_status['subtitle'])}
-      = link_to 'Add a subtitle', edit_conference_program_proposal_path(event.program.conference.short_title, event)
   %li{'class'=>class_for_todo(progress_status['commercials'])}
     %span{'class'=>icon_for_todo(progress_status['commercials'])}
       = link_to 'Add a commercial', edit_conference_program_proposal_path(event.program.conference.short_title, event, anchor: 'commercials-content')
